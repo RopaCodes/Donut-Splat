@@ -2,6 +2,7 @@ import pygame, sys
 from settings import WIDTH, HEIGHT, FPS
 from game import Game
 from entities.player import PipingPlayer
+from entities.projectile import Projectile
 
 def main():
     # pygame setup
@@ -14,6 +15,7 @@ def main():
     #class objects - must be created only once so outside the while loop
     game = Game(SCREEN)
     player = PipingPlayer(SCREEN)
+    projectile = Projectile(SCREEN)
     
 
     while running:
@@ -38,8 +40,12 @@ def main():
         # calling functions 
         game.draw_items()
         keys = pygame.key.get_pressed()
+        
         player.update(keys)
         player.draw_item()
+
+        projectile.update(keys, player.x_pos,player.y_pos)
+        
         
         
 
