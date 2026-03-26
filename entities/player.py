@@ -50,8 +50,18 @@ class PipingPlayer:
     def update(self, keys):
         if keys[pygame.K_LEFT]:
             self.x_pos -= self.speed 
+            #check boundary
+            if self.x_pos <= (0-self.display_width/2+31):
+                self.x_pos = 0-self.display_width/2+31
+        
         if keys[pygame.K_RIGHT]:
             self.x_pos += self.speed
+            #check boundary
+            if self.x_pos >= WIDTH-(self.display_width)+27:
+                self.x_pos = WIDTH-(self.display_width)+27
+
+        
+        
 
         if keys[pygame.K_SPACE]:
             self.shoot_animation_active = True
