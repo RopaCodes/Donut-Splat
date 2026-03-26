@@ -14,6 +14,9 @@ class Projectile:
         
         self.key_pressed = False
 
+        #soundfx
+        self.splat_sound = pygame.mixer.Sound("assets/soundFX/splat_sound.wav")
+
         # load img
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.img_path = os.path.normpath(os.path.join(self.base_dir, '..', 'assets', 'frosting_bullet.PNG'))
@@ -29,6 +32,7 @@ class Projectile:
         if keys[pygame.K_SPACE]:
             if not self.key_pressed:
                     # ACTION TRIGGERED ONLY ONCE
+                    self.splat_sound.play()
                     self.bullets.append([self.scaled_bullet, bag_posX + 50, bag_posY - 7])
                     self.key_pressed = True  # Set state to "held
                     
@@ -39,6 +43,15 @@ class Projectile:
         for bullet in self.bullets:
             bullet[2] -= self.speed  # move each bullet up independently
             self.screen.blit(bullet[0], (bullet[1], bullet[2]))
+            
+            #delete bullet when it goes past the screen
+            if bullet[2] < 0:
+                self.bullets.remove(bullet)
+                
+
+        
+
+             
                 
 
     
